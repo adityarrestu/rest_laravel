@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
+    protected $fillable = [
         'name',
         'description',
     ];
