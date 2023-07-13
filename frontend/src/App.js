@@ -37,6 +37,35 @@ const App = () => {
         }
     }
 
+    const updateItem = async (id, newName, newDescription) => {
+        try {
+            const response = await axios.put(`http://localhost:8000/api/items/${id}`, {
+                name: newName,
+                description: newDescription,
+            });
+
+            setItems((prevItems) =>
+                prevItems.map((item) =>
+                    item.id === id ? {
+                        ...item, name: newName, description: newDescription
+                    } : item
+                )
+            );
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const deleteItem = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/items/${id}`);
+            setItems(items.filter((item) => item.id !== id));
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
