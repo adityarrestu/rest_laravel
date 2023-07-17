@@ -96,9 +96,9 @@ const App = () => {
                                 const newName = prompt('Enter new name: ', item.name);
                                 const newDescription = prompt('Enter new description: ', item.descrition);
 
-                                    if (newName && newDescription) {
-                                        updateItem (item.id, newName, newDescription);
-                                    }
+                                if (newName && newDescription) {
+                                    updateItem (item.id, newName, newDescription);
+                                }
                             }}
                         >
                             Edit
