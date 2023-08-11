@@ -1,75 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Login from './page/Login';
+import Register from './page/Register';
 
 const App = () => {
-    const [items, setItems] = useState([]);
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    // const [items, setItems] = useState([]);
+    // const [name, setName] = useState('');
+    // const [description, setDescription] = useState('');
 
-    useEffect(() => {
-        fetchItems();
-    }, [])
+    // useEffect(() => {
+    //     fetchItems();
+    // }, [])
 
-    const fetchItems = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/api/items');
-            setItems(response.data);
+    // const fetchItems = async () => {
+    //     try {
+    //         const response = await axios.get('http://localhost:8000/api/items');
+    //         setItems(response.data);
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    const createItem = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:8000/api/items', {
-                name: name,
-                description: description,
-            });
+    // const createItem = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('http://localhost:8000/api/items', {
+    //             name: name,
+    //             description: description,
+    //         });
 
-            setItems([...items, response.data]);
-            setName('');
-            setDescription('');
+    //         setItems([...items, response.data]);
+    //         setName('');
+    //         setDescription('');
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    const updateItem = async (id, newName, newDescription) => {
-        try {
-            const response = await axios.put(`http://localhost:8000/api/items/${id}`, {
-                name: newName,
-                description: newDescription,
-            });
+    // const updateItem = async (id, newName, newDescription) => {
+    //     try {
+    //         const response = await axios.put(`http://localhost:8000/api/items/${id}`, {
+    //             name: newName,
+    //             description: newDescription,
+    //         });
 
-            setItems((prevItems) =>
-                prevItems.map((item) =>
-                    item.id === id ? {
-                        ...item, name: newName, description: newDescription
-                    } : item
-                )
-            );
+    //         setItems((prevItems) =>
+    //             prevItems.map((item) =>
+    //                 item.id === id ? {
+    //                     ...item, name: newName, description: newDescription
+    //                 } : item
+    //             )
+    //         );
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    const deleteItem = async (id) => {
-        try {
-            await axios.delete(`http://localhost:8000/api/items/${id}`);
-            setItems(items.filter((item) => item.id !== id));
+    // const deleteItem = async (id) => {
+    //     try {
+    //         await axios.delete(`http://localhost:8000/api/items/${id}`);
+    //         setItems(items.filter((item) => item.id !== id));
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     return (
         <>
-            <h1>CRUD App</h1>
+            <Router>
+                <div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/login">Login</Link>
+                            </li>
+                            <li>
+                                <Link to="/register">Register</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                    <Routes>
+                        <Route path="/login" element={<Login></Login>} />
+                        <Route path="/register" element={<Register></Register>} />
+                    </Routes>
+                </div>
+            </Router>
+
+            {/* <h1>CRUD App</h1>
 
             <form onSubmit={createItem}>
                 <input
@@ -105,7 +127,7 @@ const App = () => {
                         </button>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
         </>
     )
 }

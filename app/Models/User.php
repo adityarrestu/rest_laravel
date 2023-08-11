@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::make(md5(($value)));
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function generateToken()
